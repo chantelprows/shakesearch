@@ -45,3 +45,12 @@ make test
 ```
 
 Good luck!
+
+
+## Changes made
+
+To pass TestSearchCaseSensitive test, I changed the bytes stored in te SuffixArray to all be lowercase, since the CompleteWorks already stores the content in its original format. I also made the query all lowercase to match the bytes that it is searching.
+
+To pass the TestSearchDrunk test, I added an argument to the SuffixArray.Lookup method to limit the number of results returned, and also add the ability to pass in a page number to the Search function to set the number to pass in for the new SuffixArray.Lookup argument. The page number will come from a query param in the request url, or default to 1.
+
+To pass the "Load More" frontend test, I added the load-more id to the button element in the html file, and then created an event handler for that button that calls the search endpoint. I also modified the search request to include the page number in query parameters. I also updated the form submit handler to make sure that a fresh search changes the page number back to 1.
