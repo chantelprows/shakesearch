@@ -1,9 +1,9 @@
 const Controller = {
-  search: (ev) => {
+  search: (ev, page) => {
     ev.preventDefault();
     const form = document.getElementById("form");
     const data = Object.fromEntries(new FormData(form));
-    const response = fetch(`/search?q=${data.query}`).then((response) => {
+    const response = fetch(`/search?q=${data.query}&p=${page}`).then((response) => {
       response.json().then((results) => {
         Controller.updateTable(results);
       });
@@ -20,5 +20,16 @@ const Controller = {
   },
 };
 
+let page = 1;
+
 const form = document.getElementById("form");
-form.addEventListener("submit", Controller.search);
+form.addEventListener("submit", (e) => {
+  page = 1;
+  Controller.search(e, page);
+});
+
+const loadMore = document.getElementById("load-more");
+loadMore.addEventListener("click", (e) => {
+  page++;
+  Controller.search(e, page);
+});
